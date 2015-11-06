@@ -1,0 +1,18 @@
+<div id="view-content">
+	<p>View script for controller <b>Pet</b> and script/action name <b>index</b></p>
+	<p><?php echo $this->mdate ?></p>
+	<?php
+	$this->title = "Loại sản phẩm";
+	$this->headTitle($this->title);
+?>
+	<table>
+
+	<?php
+		foreach($this->productType as $productType): ?>
+			<tr>
+				<td><?php echo $this->escape($productType->name); ?></td>
+			</tr>
+
+	<?php endforeach ?>
+	</table>
+</div>
