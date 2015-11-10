@@ -16,10 +16,47 @@
     <schema name="" catalog="phpmyadmin"/>
     <schema name="" catalog="test"/>
     <schema name="" catalog="webauth"/>
+    <table name="description" schema="" catalog="bob_db" type="TABLE">
+      <column name="description_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="description_content" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="true" jdbcType="-1"/>
+      <primary-key name="PRIMARY" columns="description_id"/>
+      <exported-key name="general_product_ibfk_3" table="general_product" schema="" catalog="bob_db" columns="description_fk"/>
+    </table>
+    <table name="general_product" schema="" catalog="bob_db" type="TABLE">
+      <column name="general_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="sku" sqlType="VARCHAR" precision="25" scale="0" nullable="true" jdbcType="12"/>
+      <column name="general_name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="description_fk" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="product_type_fk" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="invoice_flag" sqlType="TINYINT" precision="3" scale="0" nullable="true" jdbcType="-6"/>
+      <column name="invoice_type_fk" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="general_id"/>
+      <foreign-key name="general_product_ibfk_1" columns="product_type_fk" ref-table="product_type" ref-schema="" ref-catalog="bob_db" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="general_product_ibfk_2" columns="invoice_type_fk" ref-table="invoice_type" ref-schema="" ref-catalog="bob_db" ref-columns="invoice_type_id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="general_product_ibfk_3" columns="description_fk" ref-table="description" ref-schema="" ref-catalog="bob_db" ref-columns="description_id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="images_ibfk_1" table="images" schema="" catalog="bob_db" columns="general_product_fk"/>
+      <index name="sku_idx" unique="true" columns="sku"/>
+      <index name="general_name_idx" unique="false" columns="general_name"/>
+    </table>
+    <table name="images" schema="" catalog="bob_db" type="TABLE">
+      <column name="image_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="source" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="alt_tag" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="general_product_fk" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="image_id"/>
+      <foreign-key name="images_ibfk_1" columns="general_product_fk" ref-table="general_product" ref-schema="" ref-catalog="bob_db" ref-columns="general_id" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="invoice_type" schema="" catalog="bob_db" type="TABLE">
+      <column name="invoice_type_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="invoice_type_name" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="invoice_type_id"/>
+      <exported-key name="general_product_ibfk_2" table="general_product" schema="" catalog="bob_db" columns="invoice_type_fk"/>
+    </table>
     <table name="product_type" schema="" catalog="bob_db" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="general_product_ibfk_1" table="general_product" schema="" catalog="bob_db" columns="product_type_fk"/>
     </table>
     <table name="cds" schema="" catalog="cdcol" type="TABLE">
       <column name="titel" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>

@@ -4,32 +4,23 @@ class Application_Model_DbTable_GeneralProduct extends Zend_Db_Table_Abstract
 {
     protected $_name = 'general_product';
 
-    public function getGeneralProduct($id)
-    {
-        $id = (int)$id;
-        $row = $this->fetchRow('id = ' . $id);
-        if (!$row) {
-            throw new Exception("Could not find row " . $id);
-        }
-        return $row->toArray();
-    }
+    protected $_dependentClass = array('Application_Model_DbTable_Images');
 
-    public function addGeneralProduct($name){
-        $data = array(
-            'name' => $name,
+    protected $_referenceMap = array(
+        'ProductTypeRef' => array(
+            'columns' => 'product_type_fk',
+            'refTableClass' => 'Application_Model_DbTable_ProductType',
+            'refColumns' => 'id'
+            ),
+        'InvoiceTypeRef' => array(
+            'columns' => 'invoice_type_fk',
+            'refTableClass' => 'Application_Model_DbTable_InvoiceType',
+            'refColumns' => 'invoice_type_id'
+            ),
+        'DescriptionRef' => array(
+            'columns' => 'description_fk',
+            'refTableClass' => 'Application_Model_DbTable_Description',
+            'refColumns' => 'description_id'
+            )
         );
-        $this->insert($data);
-    }
-
-    public function updateGeneralProduct($id, $name){
-        $data = array(
-          'name' => $name,
-        );
-
-        $this->update($data,'id = '.(int)$id);
-    }
-
-    public function deleteGeneralProduct($id){
-        $this->delete('id = ' . (int)$id);
-    }
 }

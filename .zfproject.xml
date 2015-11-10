@@ -23,6 +23,9 @@
           <dbTableFile dbTableName="ProductType"/>
           <dbTableFile dbTableName="Invoice"/>
           <dbTableFile dbTableName="GeneralProduct"/>
+          <dbTableFile dbTableName="InvoiceType"/>
+          <dbTableFile dbTableName="Description"/>
+          <dbTableFile dbTableName="Images"/>
         </dbTableDirectory>
         <modelFile modelName="ProductType"/>
         <modelFile modelName="GeneralProduct"/>
